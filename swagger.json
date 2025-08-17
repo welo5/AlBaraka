@@ -7,7 +7,6 @@
 	"host": "el-barka.runasp.net",
 	"basePath": "/api",
 	"schemes": ["http"],
-,
   "paths": {
     "/api/Aml": {
       "get": {
