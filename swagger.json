@@ -595,7 +595,7 @@
 					"200": {
 						"description": "successful operation",
 						"schema": {
-							"$ref": "#definitions/CoreCustomerDTO"
+							"$ref": "#/definitions/CoreCustomerDTO"
 						}
 					},
 					"400": {
@@ -750,7 +750,7 @@
 				]
 			}
 		},
-		"/Ecm/Folders/{cif}": {
+		"/Ecm/Folders/Cif/{cif}": {
 			"get": {
 				"tags": ["document"],
 				"summary": "Get folders by CIF",
@@ -795,15 +795,15 @@
 			"put": {
 				"tags": ["document"],
 				"summary": "Update an existing folder",
-				"description": "Update document folder information",
-				"operationId": "updateFolder",
+				"description": "Update document folder information by folder ID (UUID)",
+				"operationId": "updateFolderById",
 				"consumes": ["application/json"],
 				"produces": ["application/json"],
 				"parameters": [
 					{
 						"name": "id",
 						"in": "path",
-						"description": "ID of folder that needs to be updated",
+						"description": "UUID of folder that needs to be updated",
 						"required": true,
 						"type": "string",
 						"format": "uuid"
@@ -841,14 +841,14 @@
 			"delete": {
 				"tags": ["document"],
 				"summary": "Delete folder",
-				"description": "Delete a document folder",
-				"operationId": "deleteFolder",
+				"description": "Delete a document folder by folder ID (UUID)",
+				"operationId": "deleteFolderById",
 				"produces": ["application/json"],
 				"parameters": [
 					{
 						"name": "id",
 						"in": "path",
-						"description": "Folder ID to delete",
+						"description": "UUID of folder to delete",
 						"required": true,
 						"type": "string",
 						"format": "uuid"
@@ -992,7 +992,7 @@
 					}
 				],
 				"responses": {
-  "200": {
+					"200": {
 						"description": "successful operation",
 						"schema": {
 							"$ref": "#/definitions/EcmDocumentDTO"
@@ -1207,361 +1207,4 @@
 		"CoreAccount": {
 			"type": "object",
 			"required": ["accountType", "cif", "currency"],
-			"properties": {
-				"accountNumber": {
-					"type": "string",
-					"maxLength": 20,
-					"minLength": 0,
-					"example": "1234567890"
-				},
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"customer": {
-					"$ref": "#/definitions/CoreCustomer"
-				},
-				"accountType": {
-					"type": "string",
-					"maxLength": 30,
-					"minLength": 0,
-					"enum": ["savings", "current", "fixed_deposit", "loan"]
-				},
-				"currency": {
-					"type": "string",
-					"maxLength": 3,
-					"minLength": 3,
-					"example": "USD"
-				},
-				"debitBlocked": {
-					"type": "boolean",
-					"default": false
-				},
-				"productCode": {
-					"type": "string",
-					"maxLength": 30,
-					"minLength": 0
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"xml": {
-				"name": "CoreAccount"
-			}
-		},
-		"CoreAccountDTO": {
-			"type": "object",
-			"properties": {
-				"accountNumber": {
-					"type": "string"
-				},
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"accountType": {
-					"type": "string"
-				},
-				"currency": {
-					"type": "string"
-				},
-				"debitBlocked": {
-					"type": "boolean"
-				},
-				"productCode": {
-					"type": "string"
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"customer": {
-					"$ref": "#/definitions/CoreCustomerDTO"
-				}
-			},
-			"xml": {
-				"name": "CoreAccountDTO"
-			}
-		},
-		"CoreCustomer": {
-			"type": "object",
-			"required": ["branchCode", "dob", "gender", "mobile", "nameAr"],
-			"properties": {
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"nationalID": {
-					"type": "string",
-					"maxLength": 14,
-					"minLength": 0,
-					"example": "12345678901234"
-				},
-				"passportNo": {
-					"type": "string",
-					"maxLength": 30,
-					"minLength": 0
-				},
-				"nameAr": {
-					"type": "string",
-					"maxLength": 200,
-					"minLength": 0,
-					"example": "محمد أحمد"
-				},
-				"nameEn": {
-					"type": "string",
-					"maxLength": 200,
-					"minLength": 0,
-					"example": "Mohamed Ahmed"
-				},
-				"dob": {
-					"type": "string",
-					"format": "date"
-				},
-				"gender": {
-					"type": "string",
-					"enum": ["male", "female"]
-				},
-				"address": {
-					"type": "string",
-					"maxLength": 400,
-					"minLength": 0
-				},
-				"mobile": {
-					"type": "string",
-					"maxLength": 20,
-					"minLength": 0,
-					"example": "+201234567890"
-				},
-				"email": {
-					"type": "string",
-					"maxLength": 200,
-					"minLength": 0,
-					"format": "email"
-				},
-				"branchCode": {
-					"type": "string",
-					"maxLength": 10,
-					"minLength": 0,
-					"example": "BR001"
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"accounts": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CoreAccount"
-					}
-				}
-			},
-			"xml": {
-				"name": "CoreCustomer"
-			}
-		},
-		"CoreCustomerDTO": {
-			"type": "object",
-			"properties": {
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"nationalID": {
-					"type": "string"
-				},
-				"passportNo": {
-					"type": "string"
-				},
-				"nameAr": {
-					"type": "string"
-				},
-				"nameEn": {
-					"type": "string"
-				},
-				"dob": {
-					"type": "string",
-					"format": "date"
-				},
-				"gender": {
-					"type": "string"
-				},
-				"address": {
-					"type": "string"
-				},
-				"mobile": {
-					"type": "string"
-				},
-				"email": {
-					"type": "string"
-				},
-				"branchCode": {
-					"type": "string"
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"accounts": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CoreAccountDTO"
-					}
-				}
-			},
-			"xml": {
-				"name": "CoreCustomerDTO"
-			}
-		},
-		"EcmDocument": {
-			"type": "object",
-			"required": ["docType", "fileName", "folderId", "requestId"],
-			"properties": {
-				"documentId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"folderId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"folder": {
-					"$ref": "#/definitions/EcmFolder"
-				},
-				"requestId": {
-					"type": "string",
-					"maxLength": 50,
-					"minLength": 0,
-					"example": "REQ001"
-				},
-				"docType": {
-					"type": "string",
-					"maxLength": 50,
-					"minLength": 0,
-					"enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"]
-				},
-				"fileName": {
-					"type": "string",
-					"maxLength": 255,
-					"minLength": 0,
-					"example": "document.pdf"
-				},
-				"uploadedAt": {
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"xml": {
-				"name": "EcmDocument"
-			}
-		},
-		"EcmDocumentDTO": {
-			"type": "object",
-			"properties": {
-				"documentId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"folderId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"requestId": {
-					"type": "string"
-				},
-				"docType": {
-					"type": "string"
-				},
-				"fileName": {
-					"type": "string"
-				},
-				"uploadedAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"folder": {
-					"$ref": "#/definitions/EcmFolderDTO"
-				}
-			},
-			"xml": {
-				"name": "EcmDocumentDTO"
-			}
-		},
-		"EcmFolder": {
-			"type": "object",
-			"required": ["cif", "requestId"],
-			"properties": {
-				"folderId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"requestId": {
-					"type": "string",
-					"maxLength": 50,
-					"minLength": 0,
-					"example": "REQ001"
-				},
-				"pathHint": {
-					"type": "string",
-					"maxLength": 500,
-					"minLength": 0
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"documents": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/EcmDocument"
-					}
-				}
-			},
-			"xml": {
-				"name": "EcmFolder"
-			}
-		},
-		"EcmFolderDTO": {
-			"type": "object",
-			"properties": {
-				"folderId": {
-					"type": "string",
-					"format": "uuid"
-				},
-				"cif": {
-					"type": "integer",
-					"format": "int64"
-				},
-				"requestId": {
-					"type": "string"
-				},
-				"pathHint": {
-					"type": "string"
-				},
-				"createdAt": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"documents": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/EcmDocumentDTO"
-					}
-				}
-			},
-			"xml": {
-				"name": "EcmFolderDTO"
-			}
-		}
-	},
-	"externalDocs": {
-		"description": "Find out more about Banking API",
-		"url": "http://el-barka.runasp.net"
-	}
-}
+			"
