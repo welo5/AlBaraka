@@ -1,13 +1,47 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "host": "el-barka.runasp.net",
-	  "basePath": "/api",
-    "schemes": ["http"],
-    "title": "BankingAPI",
-    "version": "v1"
-  },
-  "paths": {
+	"swagger": "2.0",
+	"info": {
+		"description": "This is a comprehensive Banking API server that provides core banking functionalities including customer management, account operations, AML screening, and document management. You can find out more about this API at [http://el-barka.runasp.net](http://el-barka.runasp.net). For testing purposes, you can use various endpoints to interact with banking services.",
+		"version": "1.0.0",
+		"title": "Banking API Server",
+		"termsOfService": "http://el-barka.runasp.net/terms/",
+		"contact": {
+			"email": "api@el-barka.runasp.net"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"host": "el-barka.runasp.net",
+	"basePath": "/api",
+	"tags": [
+		{
+			"name": "aml",
+			"description": "Anti-Money Laundering operations",
+			"externalDocs": {
+				"description": "Find out more about AML",
+				"url": "http://el-barka.runasp.net/aml"
+			}
+		},
+		{
+			"name": "account",
+			"description": "Core banking account operations"
+		},
+		{
+			"name": "customer",
+			"description": "Customer management operations",
+			"externalDocs": {
+				"description": "Find out more about customer management",
+				"url": "http://el-barka.runasp.net/customers"
+			}
+		},
+		{
+			"name": "document",
+			"description": "Document and folder management operations"
+		}
+	],
+	"schemes": ["https", "http"],  "paths": {
     "/api/Aml": {
       "get": {
         "tags": [
