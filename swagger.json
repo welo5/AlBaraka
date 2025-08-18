@@ -18,11 +18,7 @@
   "tags": [
     {
       "name": "aml",
-      "description": "Anti-Money Laundering operations",
-      "externalDocs": {
-        "description": "Find out more about AML",
-        "url": "http://el-barka.runasp.net/aml"
-      }
+      "description": "Anti-Money Laundering operations"
     },
     {
       "name": "account",
@@ -30,11 +26,7 @@
     },
     {
       "name": "customer",
-      "description": "Customer management operations",
-      "externalDocs": {
-        "description": "Find out more about customer management",
-        "url": "http://el-barka.runasp.net/customers"
-      }
+      "description": "Customer management operations"
     },
     {
       "name": "document",
@@ -47,86 +39,19 @@
       "post": {
         "tags": ["aml"],
         "summary": "Create a new AML screening",
-        "description": "Perform AML screening for a customer using form parameters",
+        "description": "Perform AML screening for a customer",
         "operationId": "createAmlScreening",
-        "consumes": ["application/x-www-form-urlencoded"],
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "nationalID",
-            "in": "formData",
-            "description": "National ID of the customer",
+            "in": "body",
+            "name": "body",
+            "description": "AML screening object that needs to be created",
             "required": true,
-            "type": "string",
-            "maxLength": 14,
-            "minLength": 1,
-            "example": "12345678901234"
-          },
-          {
-            "name": "passportNo",
-            "in": "formData",
-            "description": "Passport number of the customer",
-            "required": false,
-            "type": "string",
-            "maxLength": 30,
-            "minLength": 1,
-            "example": "A12345678"
-          },
-          {
-            "name": "nameAr",
-            "in": "formData",
-            "description": "Customer name in Arabic",
-            "required": false,
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "example": "محمد أحمد"
-          },
-          {
-            "name": "nameEn",
-            "in": "formData",
-            "description": "Customer name in English",
-            "required": false,
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "example": "Mohamed Ahmed"
-          },
-          {
-            "name": "riskScore",
-            "in": "formData",
-            "description": "Risk score from AML screening",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
-            "example": 75
-          },
-          {
-            "name": "riskLevel",
-            "in": "formData",
-            "description": "Risk level from AML screening",
-            "required": true,
-            "type": "string",
-            "enum": ["low", "medium", "high"],
-            "example": "medium"
-          },
-          {
-            "name": "hitsCount",
-            "in": "formData",
-            "description": "Number of AML hits",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "example": 2
-          },
-          {
-            "name": "performedAt",
-            "in": "formData",
-            "description": "Timestamp of the AML screening",
-            "required": false,
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-08-18T13:57:00Z"
+            "schema": {
+              "$ref": "#/definitions/AmlScreeningInput"
+            }
           }
         ],
         "responses": {
@@ -154,75 +79,19 @@
       "post": {
         "tags": ["account"],
         "summary": "Create a new account",
-        "description": "Create a new bank account using form parameters",
+        "description": "Create a new bank account",
         "operationId": "createAccount",
-        "consumes": ["application/x-www-form-urlencoded"],
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountNumber",
-            "in": "formData",
-            "description": "Unique account number",
-            "required": false,
-            "type": "string",
-            "maxLength": 20,
-            "minLength": 1,
-            "example": "1234567890"
-          },
-          {
-            "name": "cif",
-            "in": "formData",
-            "description": "Customer Information File number",
+            "in": "body",
+            "name": "body",
+            "description": "Account object that needs to be created",
             "required": true,
-            "type": "integer",
-            "format": "int64",
-            "example": 123456
-          },
-          {
-            "name": "accountType",
-            "in": "formData",
-            "description": "Type of account",
-            "required": true,
-            "type": "string",
-            "enum": ["savings", "current", "fixed_deposit", "loan"],
-            "example": "savings"
-          },
-          {
-            "name": "currency",
-            "in": "formData",
-            "description": "Currency code",
-            "required": true,
-            "type": "string",
-            "maxLength": 3,
-            "minLength": 3,
-            "example": "USD"
-          },
-          {
-            "name": "debitBlocked",
-            "in": "formData",
-            "description": "Indicates if debit is blocked",
-            "required": false,
-            "type": "boolean",
-            "example": false
-          },
-          {
-            "name": "productCode",
-            "in": "formData",
-            "description": "Product code for the account",
-            "required": false,
-            "type": "string",
-            "maxLength": 30,
-            "minLength": 1,
-            "example": "SAV001"
-          },
-          {
-            "name": "createdAt",
-            "in": "formData",
-            "description": "Account creation timestamp",
-            "required": false,
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-08-18T13:57:00Z"
+            "schema": {
+              "$ref": "#/definitions/CoreAccountInput"
+            }
           }
         ],
         "responses": {
@@ -250,118 +119,19 @@
       "post": {
         "tags": ["customer"],
         "summary": "Create customer",
-        "description": "Register a new customer using form parameters",
+        "description": "Register a new customer",
         "operationId": "createCustomer",
-        "consumes": ["application/x-www-form-urlencoded"],
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "nationalID",
-            "in": "formData",
-            "description": "National ID of the customer",
-            "required": false,
-            "type": "string",
-            "maxLength": 14,
-            "minLength": 1,
-            "example": "12345678901234"
-          },
-          {
-            "name": "passportNo",
-            "in": "formData",
-            "description": "Passport number of the customer",
-            "required": false,
-            "type": "string",
-            "maxLength": 30,
-            "minLength": 1,
-            "example": "A12345678"
-          },
-          {
-            "name": "nameAr",
-            "in": "formData",
-            "description": "Customer name in Arabic",
+            "in": "body",
+            "name": "body",
+            "description": "Created customer object",
             "required": true,
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "example": "محمد أحمد"
-          },
-          {
-            "name": "nameEn",
-            "in": "formData",
-            "description": "Customer name in English",
-            "required": false,
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "example": "Mohamed Ahmed"
-          },
-          {
-            "name": "dob",
-            "in": "formData",
-            "description": "Date of birth",
-            "required": true,
-            "type": "string",
-            "format": "date",
-            "example": "1990-01-01"
-          },
-          {
-            "name": "gender",
-            "in": "formData",
-            "description": "Gender of the customer",
-            "required": true,
-            "type": "string",
-            "enum": ["male", "female"],
-            "example": "male"
-          },
-          {
-            "name": "address",
-            "in": "formData",
-            "description": "Customer address",
-            "required": false,
-            "type": "string",
-            "maxLength": 400,
-            "minLength": 1,
-            "example": "123 Main St, Cairo"
-          },
-          {
-            "name": "mobile",
-            "in": "formData",
-            "description": "Customer mobile number",
-            "required": true,
-            "type": "string",
-            "maxLength": 20,
-            "minLength": 1,
-            "example": "+201234567890"
-          },
-          {
-            "name": "email",
-            "in": "formData",
-            "description": "Customer email address",
-            "required": false,
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "format": "email",
-            "example": "mohamed@example.com"
-          },
-          {
-            "name": "branchCode",
-            "in": "formData",
-            "description": "Branch code",
-            "required": true,
-            "type": "string",
-            "maxLength": 10,
-            "minLength": 1,
-            "example": "BR001"
-          },
-          {
-            "name": "createdAt",
-            "in": "formData",
-            "description": "Customer creation timestamp",
-            "required": false,
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-08-18T13:57:00Z"
+            "schema": {
+              "$ref": "#/definitions/CoreCustomerInput"
+            }
           }
         ],
         "responses": {
@@ -386,48 +156,19 @@
       "post": {
         "tags": ["document"],
         "summary": "Create a new folder",
-        "description": "Create a document folder using form parameters",
+        "description": "Create a document folder",
         "operationId": "createFolder",
-        "consumes": ["application/x-www-form-urlencoded"],
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "cif",
-            "in": "formData",
-            "description": "Customer Information File number",
+            "in": "body",
+            "name": "body",
+            "description": "Folder object that needs to be created",
             "required": true,
-            "type": "integer",
-            "format": "int64",
-            "example": 123456
-          },
-          {
-            "name": "requestId",
-            "in": "formData",
-            "description": "Request ID for the folder",
-            "required": true,
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
-            "example": "REQ001"
-          },
-          {
-            "name": "pathHint",
-            "in": "formData",
-            "description": "Path hint for the folder",
-            "required": false,
-            "type": "string",
-            "maxLength": 500,
-            "minLength": 1,
-            "example": "/customers/123456/docs"
-          },
-          {
-            "name": "createdAt",
-            "in": "formData",
-            "description": "Folder creation timestamp",
-            "required": false,
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-08-18T13:57:00Z"
+            "schema": {
+              "$ref": "#/definitions/EcmFolderInput"
+            }
           }
         ],
         "responses": {
@@ -502,66 +243,19 @@
       "post": {
         "tags": ["document"],
         "summary": "Upload a document",
-        "description": "Upload a new document to the system using form parameters",
+        "description": "Upload a new document to the system",
         "operationId": "uploadDocument",
-        "consumes": ["application/x-www-form-urlencoded"],
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "folderId",
-            "in": "formData",
-            "description": "ID of the folder containing the document",
+            "in": "body",
+            "name": "body",
+            "description": "Document object to upload",
             "required": true,
-            "type": "string",
-            "format": "uuid",
-            "example": "550e8400-e29b-41d4-a716-446655440000"
-          },
-          {
-            "name": "requestId",
-            "in": "formData",
-            "description": "Request ID associated with the document",
-            "required": true,
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 1,
-            "example": "REQ001"
-          },
-          {
-            "name": "docType",
-            "in": "formData",
-            "description": "Type of document",
-            "required": true,
-            "type": "string",
-            "enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"],
-            "example": "identity"
-          },
-          {
-            "name": "fileName",
-            "in": "formData",
-            "description": "Name of the document file",
-            "required": true,
-            "type": "string",
-            "maxLength": 255,
-            "minLength": 1,
-            "example": "passport.pdf"
-          },
-          {
-            "name": "fileContent",
-            "in": "formData",
-            "description": "Base64-encoded file content",
-            "required": false,
-            "type": "string",
-            "format": "byte",
-            "example": "data:application/pdf;base64,JVBERi0xLjQ..."
-          },
-          {
-            "name": "uploadedAt",
-            "in": "formData",
-            "description": "Document upload timestamp",
-            "required": false,
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-08-18T13:57:00Z"
+            "schema": {
+              "$ref": "#/definitions/EcmDocumentInput"
+            }
           }
         ],
         "responses": {
@@ -598,12 +292,78 @@
         "write:documents": "modify documents",
         "read:documents": "read documents"
       }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
     }
   },
   "definitions": {
+    "AmlScreeningInput": {
+      "type": "object",
+      "required": ["nationalID", "riskLevel", "riskScore"],
+      "properties": {
+        "nationalID": {
+          "type": "string",
+          "maxLength": 14,
+          "minLength": 1,
+          "example": "12345678901234",
+          "description": "National ID of the customer"
+        },
+        "passportNo": {
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 1,
+          "example": "A12345678",
+          "description": "Passport number of the customer"
+        },
+        "nameAr": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "example": "محمد أحمد",
+          "description": "Customer name in Arabic"
+        },
+        "nameEn": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "example": "Mohamed Ahmed",
+          "description": "Customer name in English"
+        },
+        "riskScore": {
+          "type": "integer",
+          "format": "int32",
+          "example": 75,
+          "description": "Risk score from AML screening"
+        },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "example": "medium",
+          "description": "Risk level from AML screening"
+        },
+        "hitsCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2,
+          "description": "Number of AML hits"
+        },
+        "performedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-08-18T13:57:00Z",
+          "description": "Timestamp of the AML screening"
+        }
+      },
+      "xml": {
+        "name": "AmlScreeningInput"
+      }
+    },
     "AmlScreening": {
       "type": "object",
-      "required": ["screeningId", "riskLevel", "riskScore"],
+      "required": ["screeningId", "nationalID", "riskLevel", "riskScore"],
       "properties": {
         "screeningId": {
           "type": "string",
@@ -668,6 +428,59 @@
         "name": "AmlScreening"
       }
     },
+    "CoreAccountInput": {
+      "type": "object",
+      "required": ["accountType", "cif", "currency"],
+      "properties": {
+        "accountNumber": {
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 1,
+          "example": "1234567890",
+          "description": "Unique account number"
+        },
+        "cif": {
+          "type": "integer",
+          "format": "int64",
+          "example": 123456,
+          "description": "Customer Information File number"
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["savings", "current", "fixed_deposit", "loan"],
+          "example": "savings",
+          "description": "Type of account"
+        },
+        "currency": {
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "example": "USD",
+          "description": "Currency code"
+        },
+        "debitBlocked": {
+          "type": "boolean",
+          "example": false,
+          "description": "Indicates if debit is blocked"
+        },
+        "productCode": {
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 1,
+          "example": "SAV001",
+          "description": "Product code for the account"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-08-18T13:57:00Z",
+          "description": "Account creation timestamp"
+        }
+      },
+      "xml": {
+        "name": "CoreAccountInput"
+      }
+    },
     "CoreAccount": {
       "type": "object",
       "required": ["accountType", "cif", "currency"],
@@ -719,6 +532,90 @@
       },
       "xml": {
         "name": "CoreAccount"
+      }
+    },
+    "CoreCustomerInput": {
+      "type": "object",
+      "required": ["branchCode", "dob", "gender", "mobile", "nameAr"],
+      "properties": {
+        "nationalID": {
+          "type": "string",
+          "maxLength": 14,
+          "minLength": 1,
+          "example": "12345678901234",
+          "description": "National ID of the customer"
+        },
+        "passportNo": {
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 1,
+          "example": "A12345678",
+          "description": "Passport number of the customer"
+        },
+        "nameAr": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "example": "محمد أحمد",
+          "description": "Customer name in Arabic"
+        },
+        "nameEn": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "example": "Mohamed Ahmed",
+          "description": "Customer name in English"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "example": "1990-01-01",
+          "description": "Date of birth"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female"],
+          "example": "male",
+          "description": "Gender of the customer"
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 400,
+          "minLength": 1,
+          "example": "123 Main St, Cairo",
+          "description": "Customer address"
+        },
+        "mobile": {
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 1,
+          "example": "+201234567890",
+          "description": "Customer mobile number"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "format": "email",
+          "example": "mohamed@example.com",
+          "description": "Customer email address"
+        },
+        "branchCode": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1,
+          "example": "BR001",
+          "description": "Branch code"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-08-18T13:57:00Z",
+          "description": "Customer creation timestamp"
+        }
+      },
+      "xml": {
+        "name": "CoreCustomerInput"
       }
     },
     "CoreCustomer": {
@@ -811,6 +708,41 @@
         "name": "CoreCustomer"
       }
     },
+    "EcmFolderInput": {
+      "type": "object",
+      "required": ["cif", "requestId"],
+      "properties": {
+        "cif": {
+          "type": "integer",
+          "format": "int64",
+          "example": 123456,
+          "description": "Customer Information File number"
+        },
+        "requestId": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "example": "REQ001",
+          "description": "Request ID for the folder"
+        },
+        "pathHint": {
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1,
+          "example": "/customers/123456/docs",
+          "description": "Path hint for the folder"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-08-18T13:57:00Z",
+          "description": "Folder creation timestamp"
+        }
+      },
+      "xml": {
+        "name": "EcmFolderInput"
+      }
+    },
     "EcmFolder": {
       "type": "object",
       "required": ["cif", "requestId"],
@@ -852,6 +784,47 @@
         "name": "EcmFolder"
       }
     },
+    "EcmDocumentInput": {
+      "type": "object",
+      "required": ["docType", "fileName", "folderId", "requestId"],
+      "properties": {
+        "folderId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "550e8400-e29b-41d4-a716-446655440000",
+          "description": "ID of the folder containing the document"
+        },
+        "requestId": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "example": "REQ001",
+          "description": "Request ID associated with the document"
+        },
+        "docType": {
+          "type": "string",
+          "enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"],
+          "example": "identity",
+          "description": "Type of document"
+        },
+        "fileName": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1,
+          "example": "passport.pdf",
+          "description": "Name of the document file"
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-08-18T13:57:00Z",
+          "description": "Document upload timestamp"
+        }
+      },
+      "xml": {
+        "name": "EcmDocumentInput"
+      }
+    },
     "EcmDocument": {
       "type": "object",
       "required": ["docType", "fileName", "folderId", "requestId"],
@@ -887,12 +860,6 @@
           "minLength": 1,
           "example": "passport.pdf",
           "description": "Name of the document file"
-        },
-        "fileContent": {
-          "type": "string",
-          "format": "byte",
-          "example": "data:application/pdf;base64,JVBERi0xLjQ...",
-          "description": "Base64-encoded file content"
         },
         "uploadedAt": {
           "type": "string",
