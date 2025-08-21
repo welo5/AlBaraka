@@ -572,7 +572,7 @@
 				},
 				"gender": {
 					"type": "string",
-					"enum": ["male", "female"],
+					"enum": ["M", "F"],
 					"example": "male",
 					"description": "Gender of the customer (male or female)"
 				},
