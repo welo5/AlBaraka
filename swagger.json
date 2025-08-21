@@ -56,12 +56,15 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/AmlScreening"
+                "$ref": "#/definitions/AmlScreeningDTO"
               }
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -73,7 +76,7 @@
       "post": {
         "tags": ["aml"],
         "summary": "Create a new AML screening",
-        "description": "Perform AML screening for a customer",
+        "description": "Perform AML screening for a customer using AmlScreeningDTO for data transfer to the API. This endpoint creates a new AML screening record and is associated with AmlScreeningDTO for Nintex SmartObject generation.",
         "operationId": "createAmlScreening",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -81,10 +84,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "AML screening object that needs to be created",
+            "description": "AML screening DTO object to create",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AmlScreening"
+              "$ref": "#/definitions/AmlScreeningDTO"
             }
           }
         ],
@@ -92,14 +95,20 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/AmlScreening"
+              "$ref": "#/definitions/AmlScreeningDTO"
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -130,14 +139,20 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/AmlScreening"
+              "$ref": "#/definitions/AmlScreeningDTO"
             }
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "AML screening not found"
+            "description": "AML screening not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -165,10 +180,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated AML screening object",
+            "description": "Updated AML screening DTO object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AmlScreening"
+              "$ref": "#/definitions/AmlScreeningDTO"
             }
           }
         ],
@@ -177,13 +192,22 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "AML screening not found"
+            "description": "AML screening not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -213,17 +237,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "AML screening not found"
-          }
-        },
-        "security": [
-          {
-            "banking_auth": ["write:aml"]
-          }
-        ]
+            "description": "AML screening not found",
+            "schema": {
+              "$ref": "#/
+        }
       }
     },
     "/Aml/NationalId/{nationalId}": {
@@ -248,15 +271,21 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/AmlScreening"
+                "$ref": "#/definitions/AmlScreeningDTO"
               }
             }
           },
           "400": {
-            "description": "Invalid National ID"
+            "description": "Invalid National ID",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "AML screening not found"
+            "description": "AML screening not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -284,7 +313,10 @@
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -296,7 +328,7 @@
       "post": {
         "tags": ["account"],
         "summary": "Create a new account",
-        "description": "Create a new bank account",
+        "description": "Create a new bank account using CoreAccountDTO for data transfer to the API. This endpoint creates a new account and is associated with CoreAccountDTO for Nintex SmartObject generation.",
         "operationId": "createAccount",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -304,22 +336,31 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Account object that needs to be created",
+            "description": "Account DTO object to create",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CoreAccount"
+              "$ref": "#/definitions/CoreAccountDTO"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation"
+          "201": {
+            "description": "Account created successfully",
+            "schema": {
+              "$ref": "#/definitions/CoreAccountDTO"
+            }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -353,10 +394,16 @@
             }
           },
           "400": {
-            "description": "Invalid account number supplied"
+            "description": "Invalid account number supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Account not found"
+            "description": "Account not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -383,10 +430,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated account object",
+            "description": "Updated account DTO object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CoreAccount"
+              "$ref": "#/definitions/CoreAccountDTO"
             }
           }
         ],
@@ -395,13 +442,22 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid account number supplied"
+            "description": "Invalid account number supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Account not found"
+            "description": "Account not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -430,10 +486,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid account number supplied"
+            "description": "Invalid account number supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Account not found"
+            "description": "Account not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -464,10 +526,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid account number supplied"
+            "description": "Invalid account number supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Account not found"
+            "description": "Account not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -495,7 +563,10 @@
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -506,9 +577,9 @@
       },
       "post": {
         "tags": ["customer"],
-        "x-k2-entityName": "CoreCustomer",
+        "x-k2-entityName": "CoreCustomerDTO",
         "summary": "Create customer",
-        "description": "Register a new customer",
+        "description": "Register a new customer using CoreCustomerDTO for data transfer to the API. This endpoint creates a new customer and is associated with CoreCustomerDTO for Nintex SmartObject generation.",
         "operationId": "createCustomer",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -516,10 +587,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Customer object to create",
+            "description": "Customer DTO object to create",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CoreCustomerInput"
+              "$ref": "#/definitions/CoreCustomerDTO"
             }
           }
         ],
@@ -527,11 +598,14 @@
           "201": {
             "description": "Customer created successfully",
             "schema": {
-              "$ref": "#/definitions/CoreCustomer"
+              "$ref": "#/definitions/CoreCustomerDTO"
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -566,10 +640,16 @@
             }
           },
           "400": {
-            "description": "Invalid CIF supplied"
+            "description": "Invalid CIF supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Customer not found"
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -603,10 +683,16 @@
             }
           },
           "400": {
-            "description": "Invalid National ID supplied"
+            "description": "Invalid National ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Customer not found"
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -620,7 +706,7 @@
       "put": {
         "tags": ["customer"],
         "summary": "Update customer",
-        "description": "Update customer information",
+        "description": "Update customer information using CoreCustomerDTO for data transfer",
         "operationId": "updateCustomer",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -636,10 +722,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated customer object",
+            "description": "Updated customer DTO object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CoreCustomerInput"
+              "$ref": "#/definitions/CoreCustomerDTO"
             }
           }
         ],
@@ -648,10 +734,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid customer supplied"
+            "description": "Invalid customer supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Customer not found"
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -681,10 +773,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid CIF supplied"
+            "description": "Invalid CIF supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Customer not found"
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -721,7 +819,7 @@
       "post": {
         "tags": ["document"],
         "summary": "Create a new folder",
-        "description": "Create a document folder",
+        "description": "Create a document folder using EcmFolderDTO for data transfer to the API. This endpoint creates a new folder and is associated with EcmFolderDTO for Nintex SmartObject generation.",
         "operationId": "createFolder",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -729,22 +827,25 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Folder object that needs to be created",
+            "description": "Folder DTO object to create",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EcmFolder"
+              "$ref": "#/definitions/EcmFolderDTO"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation",
+          "201": {
+            "description": "Folder created successfully",
             "schema": {
-              "$ref": "#/definitions/EcmFolder"
+              "$ref": "#/definitions/EcmFolderDTO"
             }
           },
-          "405": {
-            "description": "Invalid input"
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -765,9 +866,10 @@
           {
             "name": "cif",
             "in": "path",
-            "description": "CIF of customer to retrieve folders for (integer or string representation of the customer ID)",
+            "description": "CIF of customer to retrieve folders for",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
@@ -781,10 +883,16 @@
             }
           },
           "400": {
-            "description": "Invalid CIF supplied"
+            "description": "Invalid CIF supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Folders not found for the specified CIF"
+            "description": "Folders not found for the specified CIF",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -798,7 +906,7 @@
       "put": {
         "tags": ["document"],
         "summary": "Update an existing folder",
-        "description": "Update document folder information by folder ID (UUID)",
+        "description": "Update document folder information using EcmFolderDTO for data transfer",
         "operationId": "updateFolderById",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -814,10 +922,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated folder object",
+            "description": "Updated folder DTO object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EcmFolder"
+              "$ref": "#/definitions/EcmFolderDTO"
             }
           }
         ],
@@ -826,13 +934,22 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Folder not found"
+            "description": "Folder not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -862,10 +979,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Folder not found"
+            "description": "Folder not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -910,10 +1033,16 @@
             }
           },
           "400": {
-            "description": "Invalid folder ID or request ID supplied"
+            "description": "Invalid folder ID or request ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Documents not found"
+            "description": "Documents not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -950,7 +1079,7 @@
       "post": {
         "tags": ["document"],
         "summary": "Upload a document",
-        "description": "Upload a new document to the system",
+        "description": "Upload a new document to the system using EcmDocumentDTO for data transfer to the API. This endpoint creates a new document and is associated with EcmDocumentDTO for Nintex SmartObject generation.",
         "operationId": "uploadDocument",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -958,22 +1087,25 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Document object to upload",
+            "description": "Document DTO object to upload",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EcmDocument"
+              "$ref": "#/definitions/EcmDocumentDTO"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation",
+          "201": {
+            "description": "Document uploaded successfully",
             "schema": {
-              "$ref": "#/definitions/EcmDocument"
+              "$ref": "#/definitions/EcmDocumentDTO"
             }
           },
-          "405": {
-            "description": "Invalid input"
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -1008,10 +1140,16 @@
             }
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Document not found"
+            "description": "Document not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -1023,7 +1161,7 @@
       "put": {
         "tags": ["document"],
         "summary": "Update an existing document",
-        "description": "Update document information",
+        "description": "Update document information using EcmDocumentDTO for data transfer",
         "operationId": "updateDocument",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -1039,10 +1177,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated document object",
+            "description": "Updated document DTO object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EcmDocument"
+              "$ref": "#/definitions/EcmDocumentDTO"
             }
           }
         ],
@@ -1051,13 +1189,22 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Document not found"
+            "description": "Document not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -1087,10 +1234,16 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Document not found"
+            "description": "Document not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -1125,10 +1278,16 @@
             }
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Document not found"
+            "description": "Document not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
@@ -1168,50 +1327,120 @@
       "properties": {
         "screeningId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "Unique identifier for the AML screening"
         },
         "nationalID": {
           "type": "string",
           "maxLength": 14,
-          "minLength": 0
+          "minLength": 0,
+          "description": "National ID of the customer"
         },
         "passportNo": {
           "type": "string",
           "maxLength": 30,
-          "minLength": 0
+          "minLength": 0,
+          "description": "Passport number of the customer"
         },
         "nameAr": {
           "type": "string",
           "maxLength": 200,
-          "minLength": 0
+          "minLength": 0,
+          "description": "Customer name in Arabic"
         },
         "nameEn": {
           "type": "string",
           "maxLength": 200,
-          "minLength": 0
+          "minLength": 0,
+          "description": "Customer name in English"
         },
         "riskScore": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Risk score from AML screening"
         },
         "riskLevel": {
           "type": "string",
           "maxLength": 10,
           "minLength": 0,
-          "enum": ["low", "medium", "high"]
+          "enum": ["low", "medium", "high"],
+          "description": "Risk level from AML screening"
         },
         "hitsCount": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Number of hits in AML screening"
         },
         "performedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of when the screening was performed"
         }
       },
       "xml": {
         "name": "AmlScreening"
       }
+    },
+    "AmlScreeningDTO": {
+      "type": "object",
+      "required": ["riskLevel", "riskScore"],
+      "properties": {
+        "screeningId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the AML screening (DTO for API input/output)"
+        },
+        "nationalID": {
+          "type": "string",
+          "maxLength": 14,
+          "minLength": 0,
+          "description": "National ID of the customer"
+        },
+        "passportNo": {
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 0,
+          "description": "Passport number of the customer"
+        },
+        "nameAr": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 0,
+          "description": "Customer name in Arabic"
+        },
+        "nameEn": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 0,
+          "description": "Customer name in English"
+        },
+        "riskScore": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Risk score from AML screening"
+        },
+        "riskLevel": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 0,
+          "enum": ["low", "medium", "high"],
+          "description": "Risk level from AML screening"
+        },
+        "hitsCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of hits in AML screening"
+        },
+        "performedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when the screening was performed"
+        }
+      },
+      "xml": {
+        "name": "AmlScreeningDTO"
+      },
+      "description": "Data Transfer Object for AML screening operations, used for API input/output and Nintex SmartObject generation"
     },
     "CoreAccount": {
       "type": "object",
@@ -1221,39 +1450,47 @@
           "type": "string",
           "maxLength": 20,
           "minLength": 0,
-          "example": "1234567890"
+          "example": "1234567890",
+          "description": "Unique account number"
         },
         "cif": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Customer Information File number"
         },
         "customer": {
-          "$ref": "#/definitions/CoreCustomer"
+          "$ref": "#/definitions/CoreCustomer",
+          "description": "Reference to the associated customer"
         },
         "accountType": {
           "type": "string",
           "maxLength": 30,
           "minLength": 0,
-          "enum": ["savings", "current", "fixed_deposit", "loan"]
+          "enum": ["savings", "current", "fixed_deposit", "loan"],
+          "description": "Type of account"
         },
         "currency": {
           "type": "string",
           "maxLength": 3,
           "minLength": 3,
-          "example": "USD"
+          "example": "USD",
+          "description": "Currency code"
         },
         "debitBlocked": {
           "type": "boolean",
-          "default": false
+          "default": false,
+          "description": "Indicates if debit is blocked"
         },
         "productCode": {
           "type": "string",
           "maxLength": 30,
-          "minLength": 0
+          "minLength": 0,
+          "description": "Product code for the account"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of account creation"
         }
       },
       "xml": {
@@ -1262,37 +1499,59 @@
     },
     "CoreAccountDTO": {
       "type": "object",
+      "required": ["accountType", "cif", "currency"],
       "properties": {
         "accountNumber": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 0,
+          "example": "1234567890",
+          "description": "Unique account number"
         },
         "cif": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Customer Information File number"
         },
         "accountType": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 0,
+          "enum": ["savings", "current", "fixed_deposit", "loan"],
+          "description": "Type of account"
         },
         "currency": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "example": "USD",
+          "description": "Currency code"
         },
         "debitBlocked": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if debit is blocked"
         },
         "productCode": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 0,
+          "description": "Product code for the account"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of account creation"
         },
         "customer": {
-          "$ref": "#/definitions/CoreCustomerDTO"
+          "$ref": "#/definitions/CoreCustomerDTO",
+          "description": "Reference to the associated customer DTO"
         }
       },
       "xml": {
         "name": "CoreAccountDTO"
-      }
+      },
+      "description": "Data Transfer Object for account operations, used for API input/output and Nintex SmartObject generation"
     },
     "CoreCustomer": {
       "type": "object",
@@ -1322,20 +1581,20 @@
           "type": "string",
           "maxLength": 200,
           "minLength": 1,
-          "example": "string",
+          "example": "محمد أحمد",
           "description": "Customer name in Arabic"
         },
         "nameEn": {
           "type": "string",
           "maxLength": 200,
           "minLength": 0,
-          "example": "string",
+          "example": "Mohammed Ahmed",
           "description": "Customer name in English"
         },
         "dob": {
           "type": "string",
           "format": "date",
-          "example": "2025-08-20",
+          "example": "1990-01-01",
           "description": "Date of birth (YYYY-MM-DD)"
         },
         "gender": {
@@ -1348,14 +1607,14 @@
           "type": "string",
           "maxLength": 400,
           "minLength": 0,
-          "example": "string",
+          "example": "123 Main St, City",
           "description": "Customer address"
         },
         "mobile": {
           "type": "string",
           "maxLength": 20,
           "minLength": 1,
-          "example": "string",
+          "example": "+1234567890",
           "description": "Customer mobile number"
         },
         "email": {
@@ -1363,14 +1622,14 @@
           "maxLength": 200,
           "minLength": 0,
           "format": "email",
-          "example": "use368@example.com",
+          "example": "mohammed@example.com",
           "description": "Customer email address"
         },
         "branchCode": {
           "type": "string",
           "maxLength": 10,
           "minLength": 1,
-          "example": "string",
+          "example": "BR001",
           "description": "Branch code"
         },
         "createdAt": {
@@ -1392,59 +1651,6 @@
       }
     },
     "CoreCustomerDTO": {
-      "type": "object",
-      "properties": {
-        "cif": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "nationalID": {
-          "type": "string"
-        },
-        "passportNo": {
-          "type": "string"
-        },
-        "nameAr": {
-          "type": "string"
-        },
-        "nameEn": {
-          "type": "string"
-        },
-        "dob": {
-          "type": "string",
-          "format": "date"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "branchCode": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "accounts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CoreAccountDTO"
-          }
-        }
-      },
-      "xml": {
-        "name": "CoreCustomerDTO"
-      }
-    },
-    "CoreCustomerInput": {
       "type": "object",
       "required": ["nameAr", "dob", "gender", "mobile", "branchCode"],
       "properties": {
@@ -1472,20 +1678,20 @@
           "type": "string",
           "maxLength": 200,
           "minLength": 1,
-          "example": "string",
+          "example": "محمد أحمد",
           "description": "Customer name in Arabic"
         },
         "nameEn": {
           "type": "string",
           "maxLength": 200,
           "minLength": 0,
-          "example": "string",
+          "example": "Mohammed Ahmed",
           "description": "Customer name in English"
         },
         "dob": {
           "type": "string",
           "format": "date",
-          "example": "2025-08-20",
+          "example": "1990-01-01",
           "description": "Date of birth (YYYY-MM-DD)"
         },
         "gender": {
@@ -1498,14 +1704,14 @@
           "type": "string",
           "maxLength": 400,
           "minLength": 0,
-          "example": "string",
+          "example": "123 Main St, City",
           "description": "Customer address"
         },
         "mobile": {
           "type": "string",
           "maxLength": 20,
           "minLength": 1,
-          "example": "string",
+          "example": "+1234567890",
           "description": "Customer mobile number"
         },
         "email": {
@@ -1513,14 +1719,14 @@
           "maxLength": 200,
           "minLength": 0,
           "format": "email",
-          "example": "use368@example.com",
+          "example": "mohammed@example.com",
           "description": "Customer email address"
         },
         "branchCode": {
           "type": "string",
           "maxLength": 10,
           "minLength": 1,
-          "example": "string",
+          "example": "BR001",
           "description": "Branch code"
         },
         "createdAt": {
@@ -1528,11 +1734,19 @@
           "format": "date-time",
           "example": "2025-08-20T11:38:45.184Z",
           "description": "Creation timestamp (optional, typically set by the server)"
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CoreAccountDTO"
+          },
+          "description": "List of accounts associated with the customer (DTO)"
         }
       },
       "xml": {
-        "name": "CoreCustomerInput"
-      }
+        "name": "CoreCustomerDTO"
+      },
+      "description": "Data Transfer Object for customer operations, used for API input/output and Nintex SmartObject generation"
     },
     "EcmDocument": {
       "type": "object",
@@ -1540,36 +1754,43 @@
       "properties": {
         "documentId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "Unique identifier for the document"
         },
         "folderId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "ID of the folder containing the document"
         },
         "folder": {
-          "$ref": "#/definitions/EcmFolder"
+          "$ref": "#/definitions/EcmFolder",
+          "description": "Reference to the associated folder"
         },
         "requestId": {
           "type": "string",
           "maxLength": 50,
           "minLength": 0,
-          "example": "REQ001"
+          "example": "REQ001",
+          "description": "Request ID associated with the document"
         },
         "docType": {
           "type": "string",
           "maxLength": 50,
           "minLength": 0,
-          "enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"]
+          "enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"],
+          "description": "Type of document"
         },
         "fileName": {
           "type": "string",
           "maxLength": 255,
           "minLength": 0,
-          "example": "document.pdf"
+          "example": "document.pdf",
+          "description": "Name of the document file"
         },
         "uploadedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of document upload"
         }
       },
       "xml": {
@@ -1578,35 +1799,53 @@
     },
     "EcmDocumentDTO": {
       "type": "object",
+      "required": ["docType", "fileName", "folderId", "requestId"],
       "properties": {
         "documentId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "Unique identifier for the document"
         },
         "folderId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "ID of the folder containing the document"
         },
         "requestId": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 0,
+          "example": "REQ001",
+          "description": "Request ID associated with the document"
         },
         "docType": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 0,
+          "enum": ["identity", "proof_of_income", "bank_statement", "contract", "other"],
+          "description": "Type of document"
         },
         "fileName": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 0,
+          "example": "document.pdf",
+          "description": "Name of the document file"
         },
         "uploadedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of document upload"
         },
         "folder": {
-          "$ref": "#/definitions/EcmFolderDTO"
+          "$ref": "#/definitions/EcmFolderDTO",
+          "description": "Reference to the associated folder DTO"
         }
       },
       "xml": {
         "name": "EcmDocumentDTO"
-      }
+      },
+      "description": "Data Transfer Object for document operations, used for API input/output and Nintex SmartObject generation"
     },
     "EcmFolder": {
       "type": "object",
@@ -1614,32 +1853,38 @@
       "properties": {
         "folderId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "Unique identifier for the folder"
         },
         "cif": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Customer Information File number"
         },
         "requestId": {
           "type": "string",
           "maxLength": 50,
           "minLength": 0,
-          "example": "REQ001"
+          "example": "REQ001",
+          "description": "Request ID associated with the folder"
         },
         "pathHint": {
           "type": "string",
           "maxLength": 500,
-          "minLength": 0
+          "minLength": 0,
+          "description": "Path hint for the folder"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of folder creation"
         },
         "documents": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/EcmDocument"
-          }
+          },
+          "description": "List of documents in the folder"
         }
       },
       "xml": {
@@ -1648,35 +1893,62 @@
     },
     "EcmFolderDTO": {
       "type": "object",
+      "required": ["cif", "requestId"],
       "properties": {
         "folderId": {
           "type": "string",
-          "format": "uuid"
+          "format": "uuid",
+          "description": "Unique identifier for the folder"
         },
         "cif": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Customer Information File number"
         },
         "requestId": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 0,
+          "example": "REQ001",
+          "description": "Request ID associated with the folder"
         },
         "pathHint": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 0,
+          "description": "Path hint for the folder"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp of folder creation"
         },
         "documents": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/EcmDocumentDTO"
-          }
+          },
+          "description": "List of documents in the folder (DTO)"
         }
       },
       "xml": {
         "name": "EcmFolderDTO"
-      }
+      },
+      "description": "Data Transfer Object for folder operations, used for API input/output and Nintex SmartObject generation"
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "400"
+        },
+        "message": {
+          "type": "string",
+          "example": "Invalid input: Missing required field"
+        }
+      },
+      "description": "Error response for API requests"
     }
   },
   "externalDocs": {
