@@ -506,6 +506,7 @@
       },
       "post": {
         "tags": ["customer"],
+        "x-k2-entityName": "CoreCustomer",
         "summary": "Create customer",
         "description": "Register a new customer",
         "operationId": "createCustomer",
@@ -523,8 +524,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation",
+          "201": {
+            "description": "Customer created successfully",
             "schema": {
               "$ref": "#/definitions/CoreCustomer"
             }
@@ -638,7 +639,7 @@
             "description": "Updated customer object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CoreCustomer"
+              "$ref": "#/definitions/CoreCustomerInput"
             }
           }
         ],
@@ -1295,13 +1296,13 @@
     },
     "CoreCustomer": {
       "type": "object",
-      "required": ["cif", "nameAr", "dob", "gender", "mobile", "branchCode"],
+      "required": ["nameAr", "dob", "gender", "mobile", "branchCode"],
       "properties": {
         "cif": {
           "type": "integer",
           "format": "int64",
           "example": 0,
-          "description": "Customer Information File number"
+          "description": "Customer Information File number (optional, set to 0 if not assigned)"
         },
         "nationalID": {
           "type": "string",
@@ -1376,7 +1377,7 @@
           "type": "string",
           "format": "date-time",
           "example": "2025-08-20T11:38:45.184Z",
-          "description": "Creation timestamp"
+          "description": "Creation timestamp (optional, typically set by the server)"
         },
         "accounts": {
           "type": "array",
@@ -1388,6 +1389,59 @@
       },
       "xml": {
         "name": "CoreCustomer"
+      }
+    },
+    "CoreCustomerDTO": {
+      "type": "object",
+      "properties": {
+        "cif": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nationalID": {
+          "type": "string"
+        },
+        "passportNo": {
+          "type": "string"
+        },
+        "nameAr": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "branchCode": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CoreAccountDTO"
+          }
+        }
+      },
+      "xml": {
+        "name": "CoreCustomerDTO"
       }
     },
     "CoreCustomerInput": {
@@ -1478,59 +1532,6 @@
       },
       "xml": {
         "name": "CoreCustomerInput"
-      }
-    },
-    "CoreCustomerDTO": {
-      "type": "object",
-      "properties": {
-        "cif": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "nationalID": {
-          "type": "string"
-        },
-        "passportNo": {
-          "type": "string"
-        },
-        "nameAr": {
-          "type": "string"
-        },
-        "nameEn": {
-          "type": "string"
-        },
-        "dob": {
-          "type": "string",
-          "format": "date"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "branchCode": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "accounts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CoreAccountDTO"
-          }
-        }
-      },
-      "xml": {
-        "name": "CoreCustomerDTO"
       }
     },
     "EcmDocument": {
